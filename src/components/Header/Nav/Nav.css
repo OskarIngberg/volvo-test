@@ -1,7 +1,11 @@
-.header__bars {
+.nav__close {
     position: absolute;
     right: 0;
     cursor: pointer;
     border: none;
     background-color: transparent;
 }
+
+.nav__menu.active {
+    right: 0;
+} 

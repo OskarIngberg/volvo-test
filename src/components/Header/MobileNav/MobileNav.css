@@ -1,9 +1,0 @@
-.mobile-nav__close {
-    position: absolute;
-    right: 0;
-    cursor: pointer;
-}
-
-.mobile-nav__menu.active {
-    right: 0;
-} 

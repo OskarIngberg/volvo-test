@@ -1,8 +1,7 @@
 import React from "react";
 
 interface props {
-    className?: string,
-    onClick?(): void
+    className?: string
 }
 
 const Bars = ({ className }: props) => {
