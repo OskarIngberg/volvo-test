@@ -1,7 +1,8 @@
 interface ProductI {
-    carType: string,
+    key: string,
+    bodyType: string,
     title: string,
-    engineType: string,
+    modelType: string,
     image: {
         src: string,
         alt: string

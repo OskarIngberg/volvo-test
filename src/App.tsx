@@ -1,13 +1,29 @@
 import React from 'react';
+import {
+  Router,
+  Switch,
+  Route
+} from "react-router-dom";
+import { createBrowserHistory } from 'history';
 
 import Header from './components/Header/Header';
+import Homepage from './components/Homepage/Homepage';
 
 import './App.css';
 
-function App() {
+const history = createBrowserHistory();
+
+const App = () => {
   return (
     <div className="App">
-      <Header />
+      <Router history={history}>
+        <Header />
+        <Switch>
+            <Route exact path="/">
+              <Homepage />
+            </Route>
+        </Switch>
+      </Router>
     </div>
   );
 }

@@ -1,16 +1,25 @@
 import React from "react";
-import { Card, CardContent, Text, Link } from "vcc-ui";
+import { Card, CardContent, Text, Link, useTheme } from "vcc-ui";
 import ProductI from "../../types/product";
 
 import './ProductCard.css';
 
-const ProductCard = ({ carType, title, engineType, image, links }: ProductI) => {
+const ProductCard = ({ bodyType, title, modelType, image, links }: ProductI) => {
+    const theme = useTheme();
+
     return (
         <Card>
             <CardContent>
-                <Text>{carType}</Text>
-                <Text>{title}</Text>
-                <Text>{engineType}</Text>
+                <Text 
+                    extend={{ 
+                        textTransform: 'uppercase',
+                        fontWeight: 500,
+                        color: theme.color.foreground.secondary
+                }}>
+                    {bodyType}
+                </Text>
+                <Text extend={{fontWeight: 700}}>{title}</Text>
+                <Text extend={{fontWeight: 400, color: theme.color.foreground.secondary}}>{modelType}</Text>
                 <img src={image.src} alt={image.alt} />
                 { links.map((link) => (
                     <Link href={link.href} arrow="right">
