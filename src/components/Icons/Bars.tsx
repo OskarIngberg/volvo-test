@@ -1,12 +1,15 @@
 import React from "react";
 
 interface props {
-    className?: string
+    className?: string,
+    width: number,
+    heigth: number,
+    viewBox?: string
 }
 
-const Bars = ({ className }: props) => {
+const Bars = ({ className, width, heigth, viewBox='0 0 24 24' }: props) => {
     return (
-        <svg className={className} width='24' height="24" viewBox="0 0 24 24">
+        <svg className={className} width={width} height={heigth} viewBox={viewBox}>
             <g fill="currentColor">
                 <rect x="1" y="4" width="22" height="1" rx=".5"></rect>
                 <rect x="5" y="11" width="18" height="1" rx=".5"></rect>

@@ -1,33 +1,55 @@
 import React from "react";
-import { Card, CardContent, Text, Link, useTheme } from "vcc-ui";
+import { Text, Link, Flex, Block, useTheme } from "vcc-ui";
 import ProductI from "../../types/product";
 
 import './ProductCard.css';
 
-const ProductCard = ({ bodyType, title, modelType, image, links }: ProductI) => {
+interface props extends ProductI {
+    className: string
+}
+
+const ProductCard = ({ bodyType, title, modelType, image, links, className }: props) => {
     const theme = useTheme();
 
     return (
-        <Card>
-            <CardContent>
-                <Text 
-                    extend={{ 
-                        textTransform: 'uppercase',
-                        fontWeight: 500,
-                        color: theme.color.foreground.secondary
-                }}>
-                    {bodyType}
-                </Text>
-                <Text extend={{fontWeight: 700}}>{title}</Text>
-                <Text extend={{fontWeight: 400, color: theme.color.foreground.secondary}}>{modelType}</Text>
-                <img src={image.src} alt={image.alt} />
+        <Block
+            className={`product-card ${className}`}
+            extend={{
+            width: '80%',
+            flexShrink: 0,
+            flexGrow: 1,
+            padding: 10,
+            [theme.breakpoints.fromM]: {
+                width: '31%'
+            },
+            [theme.breakpoints.fromL]: {
+                width: '23.4%'
+            },
+            [theme.breakpoints.fromXL]: {
+                width: '23.9%'
+            }
+        }}>
+            <Text 
+                extend={{ 
+                    textTransform: 'uppercase',
+                    fontWeight: 500,
+                    color: theme.color.foreground.secondary
+            }}>
+                {bodyType}
+            </Text>
+            <Text extend={{fontWeight: 700}}>{title}</Text>
+            <Text extend={{fontWeight: 400, color: theme.color.foreground.secondary, marginBottom: 8}}>{modelType}</Text>
+            <img className="product-card__image" src={image.src} alt={image.alt} />
+            <Flex extend={{ flexDirection: 'row', justifyContent: 'center' }}>
                 { links.map((link) => (
-                    <Link href={link.href} arrow="right">
-                        {link.text}
-                    </Link>
+                    <Block extend={{ marginRight: '18px' }}>
+                        <Link href={link.href} arrow="right">
+                            {link.text}
+                        </Link>
+                    </Block>
                 )) }
-            </CardContent>
-        </Card>
+            </Flex>
+        </Block>
     );
 };
 

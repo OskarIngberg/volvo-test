@@ -49,15 +49,15 @@ const Nav = ({show, setShow}: props) => {
                     <Block extend={{ borderBottom: `1px solid ${theme.color.ornament.divider}` }}>
                         <Grid>
                             <Row>
-                                <Col size={{ default: 3 }}>
+                                <Col size={{ default: 3, [theme.breakpoints.fromL]: 6 }}>
                                     <Block extend={{ paddingTop: 20, marginBottom: 20 }} >
                                         <Logo type="spreadmark" height={7} />
                                     </Block>
                                 </Col>
-                                <Col size={{ default: 1 }}>
+                                <Col size={{ default: 1, [theme.breakpoints.fromL]: 6 }}>
                                     <Block extend={{ paddingTop: 12, position: 'relative' }}>
                                         <button className="nav__close" onClick={() => setShow(false)}>
-                                            <Close />
+                                            <Close width={24} heigth={24} />
                                         </button>
                                     </Block>
                                 </Col>
@@ -66,7 +66,7 @@ const Nav = ({show, setShow}: props) => {
                     </Block>
                     <Grid>
                         <Row>
-                            <Col size={{ default: 4 }}>
+                            <Col size={{ default: 4, [theme.breakpoints.fromL]: 12 }}>
                                 <Link href="https://www.volvocars.com/" arrow="right">
                                     Visit Volvocars.com
                                 </Link>

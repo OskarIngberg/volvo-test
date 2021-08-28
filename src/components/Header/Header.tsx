@@ -15,15 +15,15 @@ const Header = () => {
             <Block as="header" className="header" extend={{ borderBottom: `1px solid ${theme.color.ornament.divider}` }}>
                 <Grid>
                     <Row>
-                        <Col size={{ default: 3 }}>
+                        <Col size={{ default: 3, [theme.breakpoints.fromL]: 6 }}>
                             <Block extend={{ paddingTop: 20, marginBottom: 20 }} >
                                 <Logo type="spreadmark" height={7} />
                             </Block>
                         </Col>
-                        <Col size={{ default: 1 }}>
+                        <Col size={{ default: 1, [theme.breakpoints.fromL]: 6 }}>
                             <Block extend={{ paddingTop: 12, position: 'relative' }}>
                                 <button className="header__bars" onClick={() => setShowMobileNav(true)}>
-                                    <Bars />
+                                    <Bars width={24} heigth={24} />
                                 </button>
                             </Block>
                         </Col>
