@@ -5,12 +5,14 @@ import CarI from "../../types/car";
 import { getWidth } from "../../utils/getBrowserDimensions";
 import mediaQueries from "../../utils/mediaQueries";
 import ChevronCircled from "../Icons/Chevron-circled";
-import ProductCard from "../ProductCard/ProductCard";
+import Carousel from "./Carousel/Carousel";
+import DesktopButtons from "./DesktopButtons/DesktopButtons";
+import MobileButtons from "./MobileButtons/MobileButtons";
 
 import './ProductCarousel.css';
 
 interface props {
-    items: Array<CarI>
+    items: Array<CarI>  
 }
 
 const ProductCarousel = ({ items }: props) => {
@@ -66,69 +68,11 @@ const ProductCarousel = ({ items }: props) => {
                 padding: '0 12px'
             },
         }}>
-            <Flex
-                ref={carousel}
-                style={{ left }}
-                extend={{ 
-                    flexDirection: 'row', 
-                    flexWrap: 'nowrap',
-                    position: 'relative',
-                    transition: 'left 0.5s',
-                }}
-            >
-                { items.map((item, index) => (
-                        <ProductCard
-                            className="product-carousel__product-card"
-                            key={`product-carousel__product-card-${index}`}
-                            bodyType={item.bodyType}
-                            title={item.modelName}
-                            modelType={item.modelType}
-                            image={{ src: item.imageUrl, alt: item.modelName }}
-                            links={[
-                                {
-                                    text: 'Learn',
-                                    href: `/learn/${item.id}`
-                                },
-                                {
-                                    text: 'Shop',
-                                    href: `/show/${item.id}`
-                                }
-                        ]}/>
-                )) }
-            </Flex>
+            <Carousel ref={carousel} left={left} items={items} />
             { windowWidth < mediaQueries.m ?
-                    <Flex extend={{ flexDirection: 'row', justifyContent: 'center' }}>
-                        {items.map((item, index) => (
-                            <Block
-                                key={`carousel-selector-${index}`}
-                                extend={{ 
-                                    backgroundColor: index === activeIndex ? theme.color.foreground.primary : theme.color.ornament.divider,
-                                    width: 10,
-                                    height: 10,
-                                    borderRadius: '50%',
-                                    marginRight: 8,
-                                    cursor: 'pointer'
-                                }}
-                                onClick={() => scrollMobile(index)}
-                            />
-                        ))}
-                    </Flex>
+                    <MobileButtons items={items} activeIndex={activeIndex} scrollMobile={scrollMobile} />
                 :
-                    <Flex extend={{ flexDirection: 'row', justifyContent: 'flex-end' }}>
-                        <Block
-                            className="product-carousel__chevron"
-                            extend={{ marginRight: 8 }}
-                            onClick={scrollLeftDesktop}
-                        >
-                            <ChevronCircled className="product-carousel__chevron-rotate" width={28} heigth={28} />
-                        </Block>
-                        <Block
-                            className="product-carousel__chevron" 
-                            onClick={scrollRightDesktop}
-                        >
-                            <ChevronCircled width={28} heigth={28} />
-                        </Block>
-                    </Flex>
+                    <DesktopButtons scrollLeft={scrollLeftDesktop} scrollRight={scrollRightDesktop} />
             }
         </Block>
     );

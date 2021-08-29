@@ -1,0 +1,7 @@
+.product-carousel__chevron {
+    cursor: pointer;
+}
+
+.product-carousel__chevron-rotate {
+    transform: rotate(180deg);
+}
