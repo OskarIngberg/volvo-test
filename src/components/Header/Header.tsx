@@ -2,9 +2,9 @@ import React, { ReactElement, useState } from "react";
 import { Block, Logo, Grid, Row, Col, useTheme } from "vcc-ui";
 
 import Nav from "./Nav/Nav";
+import Bars from "../Icons/Bars";
 
 import './Header.css';
-import Bars from "../Icons/Bars";
 
 const Header = (): ReactElement<HTMLDivElement> => {
     const theme = useTheme();

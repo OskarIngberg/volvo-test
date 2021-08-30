@@ -1,4 +1,4 @@
-import React, { ReactElement, useEffect, useState } from "react";
+import React, { ReactElement, useEffect, useState, useRef } from "react";
 import { Grid, Row, Col, Block, Logo, useTheme, Link } from "vcc-ui";
 
 import { getWidth } from "../../../utils/getBrowserDimensions";
@@ -15,10 +15,12 @@ interface props {
 const Nav = ({show, setShow}: props): ReactElement<HTMLDivElement> => {
     const theme = useTheme();
     const [windowWidth, setWindowWidth] = useState(0);
+    const nav = useRef<HTMLDivElement>(null!);
 
     useEffect((): void => {
         navWidth();
         window.addEventListener('resize', navWidth);
+        nav.current.style.display = 'block';
     }, []);
 
     const navWidth = (): void => {
@@ -34,9 +36,12 @@ const Nav = ({show, setShow}: props): ReactElement<HTMLDivElement> => {
     return (
         <>
             <Block className="nav">
-                <Block 
+                <Block
+                    ref={nav}
+                    style={{ display: 'none' }}
                     className="nav__menu"
-                    extend={{ 
+                    extend={{
+                        display: 'none',
                         backgroundColor: theme.color.background.primary,
                         position: 'fixed',
                         top: 0,
@@ -83,7 +88,8 @@ const Nav = ({show, setShow}: props): ReactElement<HTMLDivElement> => {
                 top: 0,
                 bottom: 0,
                 right: 0,
-                left: 0
+                left: 0,
+                zIndex: 8
             }} />
         </>
     );

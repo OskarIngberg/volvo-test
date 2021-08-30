@@ -9,9 +9,9 @@ import MobileButtons from "./MobileButtons/MobileButtons";
 
 import { getWidth } from "../../utils/getBrowserDimensions";
 import mediaQueries from "../../utils/mediaQueries";
+import detectMobileDevice from "../../utils/detectMobileDevice";
 
 import './ProductCarousel.css';
-import detectMobileDevice from "../../utils/detectMobileDevice";
 
 interface props {
     items: Array<CarI>  
@@ -23,6 +23,8 @@ const ProductCarousel = ({ items }: props): ReactElement<HTMLDivElement> => {
     const [productCardWidth, setProductCardWidth] = useState(0);
     const [left, setLeft] = useState(0);
     const [windowWidth, setWindowWidth] = useState(0);
+    const [leftArrowDisabled, setLeftArrowDisabled] = useState(true);
+    const [rightArrowDisabled, setRightArrowDisabled] = useState(false);
     const carousel = useRef<HTMLDivElement>(null!);
 
     const scrollMobile = useCallback((index: number): void => {
@@ -31,14 +33,32 @@ const ProductCarousel = ({ items }: props): ReactElement<HTMLDivElement> => {
         setLeft(index === items.length - 1 ? -(productCardWidth * index) + 40 : -(productCardWidth * index));
     }, [items.length, productCardWidth]);
 
+    const scrollLeftDesktop = (): void => {
+        const carouselLeft = Number(carousel.current.style.left.replace('px', ''));
+
+        if (carouselLeft >= 0) {
+            setLeftArrowDisabled(true);
+            setRightArrowDisabled(false);
+            return;
+        } else {
+            setRightArrowDisabled(false);
+            setLeft(carouselLeft + productCardWidth > 0 ? 0 : carouselLeft + productCardWidth);
+            setLeftArrowDisabled(left + productCardWidth >= -0.5 ? true : false);
+        }
+    };
+
     const scrollRightDesktop = (): void => {
         const carouselWidth = carousel.current.offsetWidth;
         const carouselLeft = Number(carousel.current.style.left.replace('px', ''));
 
-        if (carouselLeft < -carouselWidth) {
+        if (carouselLeft <= -carouselWidth) {
+            setLeftArrowDisabled(false);
+            setRightArrowDisabled(true);
             return;
         } else {
+            setLeftArrowDisabled(false);
             setLeft(carouselLeft - productCardWidth);
+            setRightArrowDisabled(left - productCardWidth <= -carouselWidth ? true : false);
         }
     };
 
@@ -90,16 +110,6 @@ const ProductCarousel = ({ items }: props): ReactElement<HTMLDivElement> => {
         element.addEventListener('mouseup', mouseup);
     }, [activeIndex, scrollMobile]);
 
-    const scrollLeftDesktop = (): void => {
-        const carouselLeft = Number(carousel.current.style.left.replace('px', ''));
-
-        if (carouselLeft >= 0) {
-            return;
-        } else {
-            setLeft(carouselLeft + productCardWidth > 0 ? 0 : carouselLeft + productCardWidth);
-        }
-    };
-
     const init = useCallback((productCard: Element): void => {
         setProductCardWidth(productCard.getBoundingClientRect().width);
         setWindowWidth(getWidth());
@@ -133,7 +143,7 @@ const ProductCarousel = ({ items }: props): ReactElement<HTMLDivElement> => {
             { windowWidth < mediaQueries.m ?
                     <MobileButtons items={items} activeIndex={activeIndex} scrollMobile={scrollMobile} />
                 :
-                    <DesktopButtons scrollLeft={scrollLeftDesktop} scrollRight={scrollRightDesktop} />
+                    <DesktopButtons scrollLeft={scrollLeftDesktop} scrollRight={scrollRightDesktop} leftDisabled={leftArrowDisabled} rightDisabled={rightArrowDisabled} />
             }
         </Block>
     );

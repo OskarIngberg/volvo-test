@@ -6,21 +6,24 @@ import './DesktopButtons.css';
 
 interface props {
     scrollLeft(): void,
-    scrollRight(): void
+    scrollRight(): void,
+    rightDisabled?: boolean,
+    leftDisabled?: boolean
 }
 
-const DesktopButtons = ({ scrollLeft, scrollRight }: props): ReactElement<HTMLDivElement> => {
+const DesktopButtons = ({ scrollLeft, scrollRight, rightDisabled, leftDisabled }: props): ReactElement<HTMLDivElement> => {
     return (
         <Flex extend={{ flexDirection: 'row', justifyContent: 'flex-end' }}>
             <Block
                 className="product-carousel__chevron"
-                extend={{ marginRight: 8 }}
+                extend={{ marginRight: 8, opacity: leftDisabled ? 0.3 : 1 }}
                 onClick={scrollLeft}
             >
                 <ChevronCircled className="product-carousel__chevron-rotate" width={28} heigth={28} />
             </Block>
             <Block
-                className="product-carousel__chevron" 
+                className="product-carousel__chevron"
+                extend={{ opacity: rightDisabled ? 0.3 : 1 }}
                 onClick={scrollRight}
             >
                 <ChevronCircled width={28} heigth={28} />
