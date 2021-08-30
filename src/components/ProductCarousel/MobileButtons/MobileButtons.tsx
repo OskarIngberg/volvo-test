@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import { Flex, Block, useTheme } from "vcc-ui";
 import CarI from '../../../types/car';
 
@@ -10,7 +10,7 @@ interface props {
     scrollMobile(index: number): void
 }
 
-const MobileButtons = ({ items, activeIndex, scrollMobile }: props) => {
+const MobileButtons = ({ items, activeIndex, scrollMobile }: props): ReactElement<HTMLDivElement> => {
     const theme = useTheme();
 
     return (

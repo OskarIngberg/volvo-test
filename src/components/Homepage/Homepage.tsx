@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { ReactElement, useEffect, useState } from "react";
 import { Block, Text } from "vcc-ui";
 
 import { cars } from "../../utils/apiUrls";
@@ -7,7 +7,7 @@ import ProductCarousel from "../ProductCarousel/ProductCarousel";
 
 import './Homepage.css';
 
-const Homepage = () => {
+const Homepage = (): ReactElement<HTMLDivElement> => {
     const [carProducts, setCarProducts] = useState([]);
 
     useEffect(() => {
@@ -15,8 +15,8 @@ const Homepage = () => {
             .then((data) => {
                 setCarProducts(data);
             }).catch((error) => {
-                console.log(error);
-            })
+                throw error
+            });
     });
 
     return (

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ReactElement } from "react";
 
 interface props {
     className?: string,
@@ -7,7 +7,7 @@ interface props {
     viewBox?: string
 }
 
-const Bars = ({ className, width, heigth, viewBox='0 0 24 24' }: props) => {
+const Bars = ({ className, width, heigth, viewBox='0 0 24 24' }: props): ReactElement<SVGSVGElement> => {
     return (
         <svg className={className} width={width} height={heigth} viewBox={viewBox}>
             <g fill="currentColor">

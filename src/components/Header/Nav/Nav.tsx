@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { ReactElement, useEffect, useState } from "react";
 import { Grid, Row, Col, Block, Logo, useTheme, Link } from "vcc-ui";
 
 import { getWidth } from "../../../utils/getBrowserDimensions";
@@ -12,16 +12,16 @@ interface props {
     setShow(show: boolean): void
 }
 
-const Nav = ({show, setShow}: props) => {
+const Nav = ({show, setShow}: props): ReactElement<HTMLDivElement> => {
     const theme = useTheme();
     const [windowWidth, setWindowWidth] = useState(0);
 
-    useEffect(() => {
+    useEffect((): void => {
         navWidth();
         window.addEventListener('resize', navWidth);
     }, []);
 
-    const navWidth = () => {
+    const navWidth = (): void => {
         const width = getWidth();
         
         if (width < mediaQueries.m) {

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ReactElement } from "react";
 import { Text, Link, Flex, Block, useTheme } from "vcc-ui";
 import ProductI from "../../types/product";
 
@@ -8,7 +8,7 @@ interface props extends ProductI {
     className: string
 }
 
-const ProductCard = ({ bodyType, title, modelType, image, links, className }: props) => {
+const ProductCard = ({ bodyType, title, modelType, image, links, className }: props): ReactElement<HTMLDivElement> => {
     const theme = useTheme();
 
     return (
@@ -20,10 +20,10 @@ const ProductCard = ({ bodyType, title, modelType, image, links, className }: pr
             flexGrow: 1,
             padding: 10,
             [theme.breakpoints.fromM]: {
-                width: '31%'
+                width: '23%'
             },
             [theme.breakpoints.fromL]: {
-                width: '23.4%'
+                width: '23.9%'
             },
             [theme.breakpoints.fromXL]: {
                 width: '23.9%'
@@ -42,7 +42,7 @@ const ProductCard = ({ bodyType, title, modelType, image, links, className }: pr
             <img className="product-card__image" src={image.src} alt={image.alt} />
             <Flex extend={{ flexDirection: 'row', justifyContent: 'center' }}>
                 { links.map((link) => (
-                    <Block extend={{ marginRight: '18px' }}>
+                    <Block key={link.text} extend={{ marginRight: '18px' }}>
                         <Link href={link.href} arrow="right">
                             {link.text}
                         </Link>

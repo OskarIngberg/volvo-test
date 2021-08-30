@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import { Flex, Block } from "vcc-ui";
 import ChevronCircled from '../../Icons/Chevron-circled';
 
@@ -9,7 +9,7 @@ interface props {
     scrollRight(): void
 }
 
-const DesktopButtons = ({ scrollLeft, scrollRight }: props) => {
+const DesktopButtons = ({ scrollLeft, scrollRight }: props): ReactElement<HTMLDivElement> => {
     return (
         <Flex extend={{ flexDirection: 'row', justifyContent: 'flex-end' }}>
             <Block

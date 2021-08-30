@@ -1,4 +1,4 @@
-import React, { forwardRef } from "react";
+import React, { forwardRef, ReactElement } from "react";
 import { Flex } from "vcc-ui";
 
 import CarI from "../../../types/car";
@@ -8,10 +8,10 @@ import './Carousel.css';
 
 interface props {
     left: number,
-    items: Array<CarI>
+    items: Array<CarI>,
 }
 
-const Carousel = forwardRef<HTMLDivElement, props>(({ left, items }, ref) => {
+const Carousel = forwardRef<HTMLDivElement, props>(({ left, items }, ref): ReactElement<HTMLDivElement> => {
     return (
         <Flex
             ref={ref}
@@ -23,7 +23,8 @@ const Carousel = forwardRef<HTMLDivElement, props>(({ left, items }, ref) => {
                 transition: 'left 0.5s',
             }}
         >
-            { items.map((item, index) => (
+            { items.map((item, index) => {
+                return (
                     <ProductCard
                         className="product-carousel__product-card"
                         key={`product-carousel__product-card-${index}`}
@@ -41,7 +42,8 @@ const Carousel = forwardRef<HTMLDivElement, props>(({ left, items }, ref) => {
                                 href: `/show/${item.id}`
                             }
                     ]}/>
-            )) }
+                )
+                }) }
         </Flex>
     );
 });

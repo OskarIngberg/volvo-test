@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { ReactElement, useState } from "react";
 import { Block, Logo, Grid, Row, Col, useTheme } from "vcc-ui";
 
 import Nav from "./Nav/Nav";
@@ -6,7 +6,7 @@ import Nav from "./Nav/Nav";
 import './Header.css';
 import Bars from "../Icons/Bars";
 
-const Header = () => {
+const Header = (): ReactElement<HTMLDivElement> => {
     const theme = useTheme();
     const [showMobileNav, setShowMobileNav] = useState(false);
 
